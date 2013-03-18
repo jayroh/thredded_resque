@@ -1,0 +1,34 @@
+# Thredded + Redis + Resque
+
+Out of the gate thredded does require anything other than a recent version of
+ruby, and postgres and it works fine as is. There is a need over time to speed
+things up with something like a background job processing queue, or a nosql
+store like redis to help speed things up.
+
+This gem helps do that. Using [resque] and [resque_mailer] it automatically
+updates all mailers to push into resque instead of sending immediately. For now
+that's all it does, but in time it will do more.
+
+[resque]: https://github.com/defunkt/resque
+[resque_mailer]: https://github.com/zapnap/resque_mailer
+
+## Installation
+
+* Dependencies:
+  1. Redis must be installed. If you're on a mac: `brew install redis` and follow the directions.
+  2. Use [foreman] ([railscast episode]) locally, and have a Procfile set up (there is a default Procfile in the thredded repo). This isn't a hard and fast requirement but it will certainly make things easier.
+* Add this gem into your thredded app **Gemfile** - `gem 'thredded_resque'`
+* Install with - `bundle install`
+* Run the generator - `rails g thredded_resque:install`. This will append a worker to your Procfile.
+* Start your local server and worker with foreman (`foreman start`) or start both of them
+  individually: 
+
+```
+bundle exec rails server
+bundle exec rake environment resque:work QUEUE='*'
+```
+
+[foreman]: https://github.com/ddollar/foreman
+[railscast episode]: http://railscasts.com/episodes/281-foreman
+
+## Using with heroku

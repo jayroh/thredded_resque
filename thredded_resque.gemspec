@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.summary     = 'thredded_resque adds resque, and resque-mailer support to thredded'
   s.description = 'thredded_resque adds resque, and resque-mailer support to thredded'
 
-  s.files = Dir['{app,config,db,lib}/**/*'] + ['MIT-LICENSE', 'Rakefile', 'README.rdoc']
+  s.files = Dir['{app,config,db,lib}/**/*'] + ['MIT-LICENSE', 'Rakefile', 'README.mkdn']
   s.add_dependency 'rails', '~> 3.2.12'
   s.add_dependency 'resque'
   s.add_dependency 'resque_mailer'

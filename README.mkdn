@@ -32,3 +32,31 @@ bundle exec rake environment resque:work QUEUE='*'
 [railscast episode]: http://railscasts.com/episodes/281-foreman
 
 ## Using with heroku
+
+* Install a redis addon like redistogo
+
+```
+heroku addons:add redistogo:nano
+```
+
+* Add a worker process. Remember - this costs $!
+
+```
+heroku ps:scale worker=1
+```
+
+* Ensure the app is set up to connect to redistogo.
+
+`config/initializers/redis.rb`
+
+```
+uri = URI.parse(ENV["REDISTOGO_URL"])
+REDIS_WORKER = Redis.new(host: uri.host, port: uri.port, password: uri.password)
+```
+
+
+`config/initializers/resque.rb`
+
+```
+Resque.redis = REDIS_WORKER
+```

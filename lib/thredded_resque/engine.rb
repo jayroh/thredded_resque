@@ -6,8 +6,8 @@ module ThreddedResque
   class Engine < Rails::Engine
     initializer 'thredded_resque.extend_mailers' do |app|
       app.config.to_prepare do
-        PostMailer.send(:include, Resque::Mailer)
-        TopicMailer.send(:include, Resque::Mailer)
+        Thredded::PostMailer.send(:include, Resque::Mailer)
+        Thredded::TopicMailer.send(:include, Resque::Mailer)
       end
     end
   end
